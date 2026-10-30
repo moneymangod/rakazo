@@ -1,0 +1,14 @@
+{
+  "name": "Rakazo",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:24-bookworm",
+  "hostRequirements": { "cpus": 2, "memory": "8gb" },
+  "secrets": {
+    "DATABASE_URL": { "description": "Runtime Postgres URL" },
+    "DATABASE_MIGRATION_URL": { "description": "Owner Postgres URL used to apply migrations" },
+    "RAKAZO_SECRET": { "description": "Long random string; every other key is derived from it" }
+  },
+  "forwardPorts": [7860],
+  "portsAttributes": { "7860": { "label": "Rakazo", "onAutoForward": "openBrowser" } },
+  "postCreateCommand": "bash infra/codespaces/setup.sh",
+  "postStartCommand": "nohup bash infra/codespaces/start.sh > /tmp/rakazo.log 2>&1 &"
+}
