@@ -17,7 +17,8 @@ elif [ -n "${CODESPACE_NAME:-}" ]; then
   export BETTER_AUTH_URL="https://$RAKAZO_HOST" WEB_ORIGIN="https://$RAKAZO_HOST"
 fi
 mkdir -p "$DATA_DIR"
-(cd apps/api && DATABASE_URL="${DATABASE_MIGRATION_URL:-$DATABASE_URL}" pnpm db:migrate)
+export DATABASE_MIGRATION_URL="${DATABASE_MIGRATION_URL:-$DATABASE_URL}"
+(cd apps/api && pnpm db:migrate)
 node --enable-source-maps apps/api/dist/index.js & api=$!
 node --enable-source-maps apps/worker/dist/index.js & worker=$!
 (cd apps/web && exec node_modules/.bin/vite preview --host 0.0.0.0 --port "${PORT:-7860}") & web=$!
