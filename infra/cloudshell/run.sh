@@ -20,6 +20,7 @@ if ! node -v 2>/dev/null | grep -q '^v24'; then
   . "$NVM_DIR/nvm.sh"
   nvm install 24
 fi
+command -v pnpm >/dev/null || corepack enable
 [ -d "$dir/.git" ] || git clone --depth 1 --branch "$branch" https://github.com/moneymangod/rakazo "$dir"
 cd "$dir"
 git fetch -q --depth 1 origin "$branch" && git reset -q --hard FETCH_HEAD || true
