@@ -22,5 +22,6 @@ if ! node -v 2>/dev/null | grep -q '^v24'; then
 fi
 [ -d "$dir/.git" ] || git clone --depth 1 --branch "$branch" https://github.com/moneymangod/rakazo "$dir"
 cd "$dir"
+git fetch -q --depth 1 origin "$branch" && git reset -q --hard FETCH_HEAD || true
 [ -d apps/api/dist ] || bash infra/codespaces/setup.sh
 PORT=8080 exec bash infra/codespaces/start.sh
